@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <title>Socket.IO chat</title>
     <style>
@@ -60,14 +60,16 @@
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
+    <!--suppress HtmlUnknownTarget -->
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      var socket = io();
+      // noinspection JSUnresolvedFunction
+      let socket = io();
 
-      var messages = document.getElementById("messages");
-      var form = document.getElementById("form");
-      var input = document.getElementById("input");
+      let messages = document.getElementById("messages");
+      let form = document.getElementById("form");
+      let input = document.getElementById("input");
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -81,7 +83,7 @@
       });
 
       socket.on("chat message", function (msg) {
-        var item = document.createElement("li");
+        let item = document.createElement("li");
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
@@ -91,7 +93,7 @@
         console.log("list data :", msgArray);
 
         for (let msg of msgArray) {
-          var item = document.createElement("li");
+          let item = document.createElement("li");
           item.textContent = msg;
           messages.appendChild(item);
           window.scrollTo(0, document.body.scrollHeight);
