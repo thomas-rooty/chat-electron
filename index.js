@@ -6,8 +6,6 @@ const electron = require('electron')
 
 let roomList = [];
 
-
-
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
@@ -96,8 +94,20 @@ io.on("connection", (socket) => {
       case "/join": {
         let room = roomList.find((x) => x.name === arg);
         if (room !== undefined) {
+          for (let room of roomList) {
+            if (room.users.find((user) => user.id === socket.id) !== undefined)
+              room.users = room.users.filter((user) => user.id !== socket.id);
+          }
           room.users.push(socket);
         }
+        break;
+      }
+      case "/leave": {
+        for (let room of roomList) {
+          if (room.users.find((user) => user.id === socket.id) !== undefined)
+            room.users = room.users.filter((user) => user.id !== socket.id);
+        }
+        console.log(roomList);
         break;
       }
       case "/create": {
@@ -110,6 +120,9 @@ io.on("connection", (socket) => {
             roomList.map((e) => e.name)
         );
         break;
+      }
+      default: {
+        console.log("Command not found");
       }
     }
   });
