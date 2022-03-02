@@ -1,5 +1,7 @@
 # chat-example
 
-## How to run 
-At first, run build.sh
-Then start.sh
+## How to build and run docker image 
+```bash
+bash build.sh
+bash start.sh
+```
